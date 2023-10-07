@@ -360,6 +360,7 @@ defmodule Oban.Telemetry do
               duration: System.convert_time_unit(measure.duration, :native, :microsecond),
               event: "job:stop",
               queue_time: System.convert_time_unit(measure.queue_time, :nanosecond, :microsecond),
+              queue_time_native: System.convert_time_unit(measure.queue_time, :native, :microsecond),
               state: meta.state
             }
 
