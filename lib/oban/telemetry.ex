@@ -357,9 +357,9 @@ defmodule Oban.Telemetry do
 
           :stop ->
             %{
-              duration: convert(measure.duration),
+              duration: System.convert_time_unit(measure.duration, :native, :microsecond),
               event: "job:stop",
-              queue_time: convert(measure.queue_time),
+              queue_time: System.convert_time_unit(measure.queue_time, :nanosecond, :microsecond),
               state: meta.state
             }
 
@@ -367,8 +367,8 @@ defmodule Oban.Telemetry do
             %{
               error: Exception.format_banner(meta.kind, meta.reason, meta.stacktrace),
               event: "job:exception",
-              duration: convert(measure.duration),
-              queue_time: convert(measure.queue_time),
+              duration: System.convert_time_unit(measure.duration, :native, :microsecond),
+              queue_time: System.convert_time_unit(measure.queue_time, :nanosecond, :microsecond),
               state: meta.state
             }
         end
@@ -412,6 +412,4 @@ defmodule Oban.Telemetry do
       end
     end)
   end
-
-  defp convert(value), do: System.convert_time_unit(value, :native, :microsecond)
 end
